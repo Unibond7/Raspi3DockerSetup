@@ -1,0 +1,76 @@
+version: "3"
+services:
+
+
+  homeassistant:
+    image: homeassistant/raspberrypi3-homeassistant:stable
+    container_name: homeassistant
+    depends_on:
+      - deconz
+    healthcheck:
+      test: ["CMD", "curl", "-s", "http://localhost:8123"]
+      interval: 5s
+      timeout: 3s
+      retries: 100
+    restart: unless-stopped
+    privileged: true
+    network_mode: host
+    environment:
+      - TZ=Europe/Amsterdam
+    devices:
+      - /dev/ttyAMA0
+      - /dev/vcio
+      - dev/sda2
+    volumes:
+      - ./services/homeassistant/data/config:/config
+      - /root/.ssh/asus_router:/config/asus_router
+      - /mnt/usb-disk/home-assistant_v2.db:/config/home-assistant_v2.db
+
+  deconz:
+    image: marthoc/deconz
+    container_name: deconz
+    restart: unless-stopped
+    network_mode: host
+    environment:
+      - DECONZ_WEB_PORT=8080
+      - DECONZ_WS_PORT=8443
+      - TZ=Europe/Amsterdam
+      - DECONZ_UPNP=0
+      - DECONZ_DEVICE=/dev/ttyACM0 
+    devices:
+     - /dev/ttyACM0 
+    volumes:
+      - ./services/deconz/data/config:/root/.local/share/dresden-elektronik/deCONZ
+      - /etc/localtime:/etc/localtime:ro
+
+  db:
+    image: influxdb:latest
+    container_name: influxdb 
+    restart: unless-stopped
+    environment:
+      - INFLUXDB_DB=home_assistant
+    volumes:
+      - /mnt/usb-disk/influxdb:/var/lib/influxdb
+    ports:
+      - 8086:8086
+
+  grafana:
+    image: grafana/grafana:latest
+    container_name: grafana
+    restart: unless-stopped
+    user: "0"
+    volumes:
+      - /mnt/usb-disk/grafana:/var/lib/grafana
+    ports:
+      - 3000:3000
+
+  noip:
+    build:
+      context: ./services/noip
+    container_name: noip
+    restart: unless-stopped
+    environment:
+      - NOIP_USERNAME=noip@themamo.com
+      - NOIP_PASSWORD=${NOIP_PASSWORD}
+      - NOIP_HOSTNAME=timsraspi.ddns.net
+      - PERIOD=60

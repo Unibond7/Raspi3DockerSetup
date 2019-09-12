@@ -1,0 +1,8 @@
+# Ignore .env file
+.env
+
+# Ignore services data dirs
+services/**/data/*
+
+# Leave data dir
+!services/**/data/.gitkeep
