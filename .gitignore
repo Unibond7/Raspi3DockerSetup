@@ -3,6 +3,7 @@
 
 # Ignore services data dirs
 services/**/data/*
+services/tmp/*
 
 # Leave data dir
 !services/**/data/.gitkeep
