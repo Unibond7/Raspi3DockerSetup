@@ -6,6 +6,8 @@ services:
     container_name: homeassistant
     depends_on:
       - deconz
+      - db
+      - grafana
     healthcheck:
       test: ["CMD", "curl", "-s", "http://localhost:8123"]
       interval: 5s
