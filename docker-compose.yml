@@ -19,7 +19,6 @@ services:
     devices:
       - /dev/ttyAMA0
       - /dev/vcio
-      - dev/sda2
     volumes:
       - /mnt/usb-disk/homeassistant/data/config:/config
       - /root/.ssh/asus_router:/config/asus_router
@@ -36,7 +35,7 @@ services:
       - DECONZ_UPNP=0
       - DECONZ_DEVICE=/dev/ttyACM0 
     devices:
-     - /dev/ttyACM0 
+     - /dev/ttyACM0
     volumes:
       - /mnt/usb-disk/deconz/data/config:/root/.local/share/dresden-elektronik/deCONZ
       - /etc/localtime:/etc/localtime:ro
