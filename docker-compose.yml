@@ -71,7 +71,7 @@ services:
     container_name: noip
     restart: unless-stopped
     environment:
-      - NOIP_USERNAME=noip@themamo.com
+      - NOIP_USERNAME=${NOIP_EMAIL}
       - NOIP_PASSWORD=${NOIP_PASSWORD}
-      - NOIP_HOSTNAME=timsraspi.ddns.net
+      - NOIP_HOSTNAME=${HOSTNAME}
       - PERIOD=60
