@@ -6,8 +6,9 @@ services:
     container_name: homeassistant
     depends_on:
       - deconz
-      - db
+      - influxdb
       - grafana
+      - telegraf
     healthcheck:
       test: ["CMD", "curl", "-s", "http://localhost:8123"]
       interval: 5s
@@ -26,7 +27,7 @@ services:
       - /root/.ssh/asus_router:/config/asus_router
 
   deconz:
-    image: marthoc/deconz:latest
+    image: marthoc/deconz:armhf-2.05.69
     container_name: deconz
     restart: unless-stopped
     network_mode: host
@@ -42,8 +43,8 @@ services:
       - /mnt/usb-disk/deconz/data/config:/root/.local/share/dresden-elektronik/deCONZ
       - /etc/localtime:/etc/localtime:ro
 
-  db:
-    image: influxdb:latest
+  influxdb:
+    image: influxdb:1.7.8
     container_name: influxdb 
     restart: unless-stopped
     environment:
@@ -56,14 +57,32 @@ services:
       - 8086:8086
 
   grafana:
-    image: grafana/grafana:latest
+    image: grafana/grafana:6.3.5
     container_name: grafana
+    depends_on:
+      - telegraf
+      - influxdb
     restart: unless-stopped
     user: "0"
     volumes:
       - /mnt/usb-disk/grafana:/var/lib/grafana
     ports:
       - 3000:3000
+
+  telegraf:
+    image: telegraf:1.12.1
+    container_name: telegraf
+    depends_on:
+      - influxdb
+    restart: unless-stopped
+    network_mode: container:influxdb
+    environment:
+      - HOST_PROC=/host/proc
+      - TELEGRAF_DB_PASSWORD=${TELEGRAF_DB_PASSWORD}
+    volumes:
+      - /proc:/host/proc:ro
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - ./services/telegraf/telegraf.conf:/etc/telegraf/telegraf.conf:ro
 
   noip:
     build:
