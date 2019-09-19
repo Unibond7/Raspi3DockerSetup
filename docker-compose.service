@@ -4,6 +4,7 @@ Requires=docker.service
 After=docker.service
 
 [Service]
+WorkingDirectory=/opt/docker-compose/
 Restart=always
 User=root
 Group=docker
