@@ -81,6 +81,7 @@ services:
       - TELEGRAF_DB_PASSWORD=${TELEGRAF_DB_PASSWORD}
     volumes:
       - /proc:/host/proc:ro
+      - /mnt/usb-disk:/hostfs:ro
       - /var/run/docker.sock:/var/run/docker.sock:ro
       - ./services/telegraf/telegraf.conf:/etc/telegraf/telegraf.conf:ro
 
