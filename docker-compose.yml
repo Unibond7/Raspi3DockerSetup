@@ -95,3 +95,23 @@ services:
       - NOIP_PASSWORD=${NOIP_PASSWORD}
       - NOIP_HOSTNAME=${HOSTNAME}
       - PERIOD=60
+
+  pihole:
+    container_name: pihole
+    image: pihole/pihole:4.3.2
+    ports:
+      - 53:53/tcp
+      - 53:53/udp
+      - 67:67/udp
+      - 80:80/tcp
+      - 443:443/tcp
+    environment:
+      TZ=Netherlands/Amsterdam
+      WEBPASSWORD=${PIHOLE_PASSWORD}
+    volumes:
+      - /mnt/usb-disk/etc-pihole/:/etc/pihole/
+      - /mnt/usb-disk/etc-dnsmasq.d/:/etc/dnsmasq.d/
+    dns:
+      - 127.0.0.1
+      - 1.1.1.1
+    restart: unless-stopped
