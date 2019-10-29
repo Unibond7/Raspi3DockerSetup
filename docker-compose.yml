@@ -126,6 +126,8 @@ services:
       - USER=${TRANSMISSION_USERNAME}
       - PASS=${TRANSMISSION_PASSWORD}
     volumes:
+      - PUID=1000
+      - PGID=1000
       - /mnt/usb-disk/transmission/data:/config
       - /mnt/usb-disk/transmission/downloads:/downloads
       - /mnt/usb-disk/transmission/watch:/watch
