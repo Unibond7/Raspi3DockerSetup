@@ -75,7 +75,8 @@ services:
     depends_on:
       - influxdb
     restart: unless-stopped
-    network_mode: container:influxdb
+    links:
+      - influxdb
     environment:
       - HOST_PROC=/host/proc
       - TELEGRAF_DB_PASSWORD=${TELEGRAF_DB_PASSWORD}

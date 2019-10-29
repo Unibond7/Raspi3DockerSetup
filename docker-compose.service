@@ -11,7 +11,7 @@ Group=docker
 # Shutdown container (if running) when unit is stopped
 ExecStartPre=/usr/bin/docker-compose -f /opt/docker-compose/docker-compose.yml down -v
 # Start container when unit is started
-ExecStart=/usr/bin/docker-compose -f /opt/docker-compose/docker-compose.yml up
+ExecStart=/usr/bin/docker-compose -f /opt/docker-compose/docker-compose.yml up -d
 # Stop container when unit is stopped
 ExecStop=/usr/bin/docker-compose -f /opt/docker-compose/docker-compose.yml down -v
 
