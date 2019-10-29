@@ -116,3 +116,21 @@ services:
       - 127.0.0.1
       - 1.1.1.1
     restart: unless-stopped
+
+transmission:
+    image: linuxserver/transmission:arm32v7-2.94-r2-ls32
+    container_name: transmission
+    environment:
+      - TZ=Europe/Amsterdam
+      - TRANSMISSION_WEB_HOME=/combustion-release/
+      - USER=${TRANSMISSION_USERNAME}
+      - PASS=${TRANSMISSION_PASSWORD}
+    volumes:
+      - path to mnt/usb-disk/transmission/data:/config
+      - path to mnt/usb-disk/transmission/downloads:/downloads
+      - path to mnt/usb-disk/transmission/watch folder:/watch
+    ports:
+      - 9091:9091
+      - 51413:51413
+      - 51413:51413/udp
+    restart: unless-stopped
