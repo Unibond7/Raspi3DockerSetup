@@ -2,7 +2,7 @@ version: "3"
 services:
 
   homeassistant:
-    image: homeassistant/raspberrypi3-homeassistant:stable
+    image: homeassistant/raspberrypi3-homeassistant:0.100.3
     container_name: homeassistant
     depends_on:
       - deconz
@@ -57,7 +57,7 @@ services:
       - 8086:8086
 
   grafana:
-    image: grafana/grafana:6.3.5
+    image: grafana/grafana:6.4.3
     container_name: grafana
     depends_on:
       - telegraf
@@ -70,7 +70,7 @@ services:
       - 3000:3000
 
   telegraf:
-    image: telegraf:1.12.1
+    image: telegraf:1.12.3
     container_name: telegraf
     depends_on:
       - influxdb
