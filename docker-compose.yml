@@ -126,9 +126,9 @@ services:
       - USER=${TRANSMISSION_USERNAME}
       - PASS=${TRANSMISSION_PASSWORD}
     volumes:
-      - path to /mnt/usb-disk/transmission/data:/config
-      - path to /mnt/usb-disk/transmission/downloads:/downloads
-      - path to /mnt/usb-disk/transmission/watch folder:/watch
+      - /mnt/usb-disk/transmission/data:/config
+      - /mnt/usb-disk/transmission/downloads:/downloads
+      - /mnt/usb-disk/transmission/watch:/watch
     ports:
       - 9091:9091
       - 51413:51413
