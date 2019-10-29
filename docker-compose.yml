@@ -121,8 +121,8 @@ services:
     image: linuxserver/transmission:arm32v7-2.94-r2-ls32
     container_name: transmission
     environment:
-      - PUID=1000
-      - PGID=1000
+      - PUID=0
+      - PGID=0
       - TZ=Europe/Amsterdam
       - TRANSMISSION_WEB_HOME=/combustion-release/
       - USER=${TRANSMISSION_USERNAME}
