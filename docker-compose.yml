@@ -86,20 +86,21 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock:ro
       - ./services/telegraf/telegraf.conf:/etc/telegraf/telegraf.conf:ro
 
-  noip:
-    build:
-      context: ./services/noip
-    container_name: noip
-    restart: unless-stopped
-    environment:
-      - NOIP_USERNAME=${NOIP_EMAIL}
-      - NOIP_PASSWORD=${NOIP_PASSWORD}
-      - NOIP_HOSTNAME=${HOSTNAME}
-      - PERIOD=60
+        #  noip:
+        #    build:
+        #      context: ./services/noip
+        #    container_name: noip
+        #    restart: unless-stopped
+        #    environment:
+        #      - NOIP_USERNAME=${NOIP_EMAIL}
+        #      - NOIP_PASSWORD=${NOIP_PASSWORD}
+        #      - NOIP_HOSTNAME=${HOSTNAME}
+        #      - PERIOD=60
 
   pihole:
     container_name: pihole
-    image: pihole/pihole:4.3.2
+    image: pihole/pihole:4.3.1
+    user: "0"
     ports:
       - 53:53/tcp
       - 53:53/udp
