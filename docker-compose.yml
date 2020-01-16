@@ -2,7 +2,7 @@ version: "3"
 services:
 
   homeassistant:
-    image: homeassistant/raspberrypi3-homeassistant:0.100.3
+    image: homeassistant/raspberrypi3-homeassistant:0.103.6
     container_name: homeassistant
     depends_on:
       - deconz
@@ -23,7 +23,7 @@ services:
       - /dev/ttyAMA0
       - /dev/vcio
     volumes:
-      - /mnt/usb-disk/homeassistant/data/config:/config
+      - /mnt/usb-disk-2/homeassistant/data/config:/config
       - /root/.ssh/asus_router:/config/asus_router
 
   deconz:
@@ -40,7 +40,7 @@ services:
     devices:
      - /dev/ttyACM0
     volumes:
-      - /mnt/usb-disk/deconz/data/config:/root/.local/share/dresden-elektronik/deCONZ
+      - /mnt/usb-disk-2/deconz/data/config:/root/.local/share/dresden-elektronik/deCONZ
       - /etc/localtime:/etc/localtime:ro
 
   influxdb:
@@ -52,7 +52,7 @@ services:
       - INFLUXDB_USER=${INFLUXDB_USER}
       - INFLUXDB_USER_PASSWORD=${INFLUXDB_USER_PASSWORD}
     volumes:
-      - /mnt/usb-disk/influxdb:/var/lib/influxdb
+      - /mnt/usb-disk-2/influxdb:/var/lib/influxdb
     ports:
       - 8086:8086
 
@@ -65,7 +65,7 @@ services:
     restart: unless-stopped
     user: "0"
     volumes:
-      - /mnt/usb-disk/grafana:/var/lib/grafana
+      - /mnt/usb-disk-2/grafana:/var/lib/grafana
     ports:
       - 3000:3000
 
@@ -82,7 +82,7 @@ services:
       - TELEGRAF_DB_PASSWORD=${TELEGRAF_DB_PASSWORD}
     volumes:
       - /proc:/host/proc:ro
-      - /mnt/usb-disk:/hostfs:ro
+      - /mnt/usb-disk-2:/hostfs:ro
       - /var/run/docker.sock:/var/run/docker.sock:ro
       - ./services/telegraf/telegraf.conf:/etc/telegraf/telegraf.conf:ro
 
@@ -111,8 +111,8 @@ services:
       - TZ=Netherlands/Amsterdam
       - WEBPASSWORD=${PIHOLE_PASSWORD}
     volumes:
-      - /mnt/usb-disk/etc-pihole/:/etc/pihole/
-      - /mnt/usb-disk/etc-dnsmasq.d/:/etc/dnsmasq.d/
+      - /mnt/usb-disk-2/etc-pihole/:/etc/pihole/
+      - /mnt/usb-disk-2/etc-dnsmasq.d/:/etc/dnsmasq.d/
     dns:
       - 127.0.0.1
       - 1.1.1.1
@@ -129,9 +129,9 @@ services:
       - USER=${TRANSMISSION_USERNAME}
       - PASS=${TRANSMISSION_PASSWORD}
     volumes:
-      - /mnt/usb-disk/transmission/data:/config
-      - /mnt/usb-disk/transmission/downloads:/downloads
-      - /mnt/usb-disk/transmission/watch:/watch
+      - /mnt/usb-disk-2/transmission/data:/config
+      - /mnt/usb-disk-2/transmission/downloads:/downloads
+      - /mnt/usb-disk-2/transmission/watch:/watch
     ports:
       - 9091:9091
       - 51413:51413

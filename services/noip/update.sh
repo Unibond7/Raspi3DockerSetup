@@ -38,7 +38,7 @@ fi
 while :
 do
   echo "Updating $NOIP_HOSTNAME..."
-  /usr/bin/curl -s https://$NOIP_USERNAME:$NOIP_PASSWORD@dynupdate.no-ip.com/nic/update?hostname=$NOIP_HOSTNAME&myip=$(dig @resolver1.opendns.com ANY myip.opendns.com +short)
+  /usr/bin/curl -s https://$NOIP_USERNAME:$NOIP_PASSWORD@dynupdate.no-ip.com/nic/update?hostname=$NOIP_HOSTNAME&myip=$(/usr/bin/curl icanhazip.com)
   echo "Updated!"
   sleep $PERIOD &
   wait $!
