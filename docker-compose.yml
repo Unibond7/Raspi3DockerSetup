@@ -2,7 +2,7 @@ version: "3"
 services:
 
   homeassistant:
-    image: homeassistant/raspberrypi3-homeassistant:0.103.6
+    image: homeassistant/raspberrypi3-homeassistant:0.104
     container_name: homeassistant
     depends_on:
       - deconz
