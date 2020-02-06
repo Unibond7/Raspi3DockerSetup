@@ -138,31 +138,31 @@ services:
       - 51413:51413/udp
     restart: unless-stopped
 
-  sonarr:
-    image: linuxserver/sonarr:2.0.0.5337-ls95
-    container_name: sonarr
-    environment:
-      - PUID=0
-      - PGID=0
-      - TZ=Europe/Amsterdam
-    volumes:
-      - /mnt/usb-disk-2/sonarr/data:/config
-      - /mnt/usb-disk-2/sonarr/tvseries:/tv
-      - /mnt/usb-disk-2/transmission/downloads:/downloads
-    ports:
-      - 8989:8989
-    restart: unless-stopped
-
-  jackett:
-    image: linuxserver/jackett:v0.12.1701-ls53
-    container_name: jackett
-    environment:
-      - PUID=0
-      - PGID=0
-      - TZ=Europe/Amsterdam
-    volumes:
-      - /mnt/usb-disk-2/jackett/data:/config
-      - /mnt/usb-disk-2/transmission/watch:/downloads
-    ports:
-      - 9117:9117
-    restart: unless-stopped
+    #  sonarr:
+    #    image: linuxserver/sonarr:2.0.0.5337-ls95
+    #    container_name: sonarr
+    #    environment:
+    #      - PUID=0
+    #      - PGID=0
+    #      - TZ=Europe/Amsterdam
+    #    volumes:
+    #      - /mnt/usb-disk-2/sonarr/data:/config
+    #      - /mnt/usb-disk-2/sonarr/tvseries:/tv
+    #      - /mnt/usb-disk-2/transmission/downloads:/downloads
+    #    ports:
+    #      - 8989:8989
+    #    restart: unless-stopped
+    #
+    #  jackett:
+    #    image: linuxserver/jackett:v0.12.1701-ls53
+    #    container_name: jackett
+    #    environment:
+    #      - PUID=0
+    #      - PGID=0
+    #      - TZ=Europe/Amsterdam
+    #    volumes:
+    #      - /mnt/usb-disk-2/jackett/data:/config
+    #      - /mnt/usb-disk-2/transmission/watch:/downloads
+    #    ports:
+    #      - 9117:9117
+    #    restart: unless-stopped
